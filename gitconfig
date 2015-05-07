@@ -10,7 +10,12 @@
     deleted = red
     untracked = yellow
 [user]
-    name = JarrodCTaylor
-    email = jarrod.c.taylor@gmail.com
+    name = Dustin Farris
+    email = dustin.farris@gmail.com
+[alias]
+    co = checkout
+    br = branch
 [push]
-    default = matching
+    default = simple
+[pull]
+    rebase = true
