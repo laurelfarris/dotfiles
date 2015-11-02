@@ -10,17 +10,28 @@ let g:unite_enable_start_insert = 1
 let g:unite_split_rule = 'botright'
 let g:unite_force_overwrite_statusline = 0
 let g:unite_winheight = 15
-let g:unite_source_history_yank_enable = 1
 let g:unite_prompt = '──➤  '
 let g:unite_update_time = 200
-"let g:unite_source_rec_max_cache_files = 0 " The default is 20000
 let g:unite_data_directory = $HOME.'/.vim/tmp/unite'
 let g:unite_source_buffer_time_format = '(%m-%d-%Y %H:%M:%S) '
 let g:unite_source_file_mru_time_format = '(%m-%d-%Y %H:%M:%S) '
 let g:unite_source_directory_mru_time_format = '(%m-%d-%Y %H:%M:%S) '
-let g:unite_source_rec_async_command= 'ag --nocolor --nogroup -g ""'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
+
+" =======
+" Configuration for file_rec/async
+" This rarely seems to work. Switched to using git as the source
+" for populating the find file list. Note that files that haven't
+" yet been staged will not return in the results
+" =======
+" NOTE: <C-l> in a unite buffer will refresh the file cache
+" let g:unite_source_rec_async_command= 'ag -p ~/.agignore --nocolor --nogroup -g ""'
+" let g:unite_source_rec_max_cache_files = 0 " The default is 20000
+" call unite#custom#source('file_rec/async', 'ignore_globs', ['.', '*~', '*.o', '*.exe', '*.bak',
+"                                                             \ 'DS_Store', '*.pyc', '*.sw[po]',
+"                                                             \ '*.class', '.git/**', 'tags', 'tags-*',
+"                                                             \ 'node_modules/**', 'bower_components/**'])
 
 "-------------------------------------------------------------------------------
 " Settings that take effect only in unite buffers
@@ -43,10 +54,9 @@ endfunction
 "===============================================================================
 " filter buffer for search term
 nnoremap <Leader>sb :Unite line<CR>
-nnoremap <Leader>y :Unite history/yank<CR><Esc>
 nnoremap <Leader>sj :Unite jump<CR><Esc>
 nnoremap <Leader>nu :<C-u>Unite neobundle/update -log -vertical -auto-quit<CR>
-nnoremap <Leader>ff :Unite file file_rec/async -start-insert -buffer-name=files -winheight=18<CR>
+nnoremap <Leader>ff :Unite file file_rec/git -start-insert -buffer-name=files -winheight=18<CR>
 nnoremap <Leader>b :Unite buffer<CR>
 
 "===============================================================================
@@ -69,7 +79,6 @@ let g:unite_source_menu_menus.CustomKeyMaps.command_candidates = [
     \['➤ Search jumps                                                  <Leader>sj', 'Unite jump'],
     \['➤ Search lines in the current buffer                            <Leader>sb', 'Unite line'],
     \['➤ Update Neobundle packages                                     <Leader>nu', 'normal <Leader>nu'],
-    \['➤ Yank history                                                  <Leader>y', 'Unite history/yank'],
     \]
 nnoremap <silent>[menu]<Space> :Unite -silent -winheight=17 -start-insert menu:CustomKeyMaps<CR>
 
