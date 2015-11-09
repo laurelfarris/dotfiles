@@ -10,8 +10,8 @@
     deleted = red
     untracked = yellow
 [user]
-    name = Dustin Farris
-    email = dustin.farris@gmail.com
+    name = Laurel Farris
+    email = laurel@laurelfarris.com
 [alias]
     co = checkout
     br = branch
