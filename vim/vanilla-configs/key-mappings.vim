@@ -51,6 +51,10 @@ nnoremap <leader>h :%!xxd<CR>
 nnoremap <Leader><Leader> <c-^>
 inoremap 9fp <C-x><C-f>
 inoremap 9c <C-x><C-o>
+nnoremap { k{j^
+vnoremap { k{j^
+nnoremap } j}k^
+vnoremap } j}k^
 " --- Select tag if more than one option exists else jump to tag
 nnoremap <Leader>st g<C-]>
 " --- Shortcuts for quickfix as it was broken for some reason
@@ -59,6 +63,15 @@ autocmd BufReadPost quickfix nnoremap <buffer> o :.cc<CR>
 autocmd BufReadPost quickfix nnoremap <buffer> <Leader><Leader> :echo "I don't think you want to do that"<CR>
 " --- Save changes to a readonly file with sudo
 cmap w!! w !sudo tee %
+" --- http://vim.wikia.com/wiki/Search_for_visually_selected_text
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
 
 "===============================================================================
 " Unite Keymap Menu Item(s)

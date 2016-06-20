@@ -1,8 +1,10 @@
 vim/bundle/
 vim/tmp/
 vim/custom-snips/*
+vim/custom-snips
 .DS_Store
 custom-configs/*
-!custom-configs/.git-keep.sh
+custom-configs/custom-snips/*
+!custom-configs/custom-snips/.git-keep.sh
 config/configstore/*
 tags

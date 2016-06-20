@@ -18,20 +18,7 @@ let g:unite_source_file_mru_time_format = '(%m-%d-%Y %H:%M:%S) '
 let g:unite_source_directory_mru_time_format = '(%m-%d-%Y %H:%M:%S) '
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
-
-" =======
-" Configuration for file_rec/async
-" This rarely seems to work. Switched to using git as the source
-" for populating the find file list. Note that files that haven't
-" yet been staged will not return in the results
-" =======
-" NOTE: <C-l> in a unite buffer will refresh the file cache
-" let g:unite_source_rec_async_command= 'ag -p ~/.agignore --nocolor --nogroup -g ""'
-" let g:unite_source_rec_max_cache_files = 0 " The default is 20000
-" call unite#custom#source('file_rec/async', 'ignore_globs', ['.', '*~', '*.o', '*.exe', '*.bak',
-"                                                             \ 'DS_Store', '*.pyc', '*.sw[po]',
-"                                                             \ '*.class', '.git/**', 'tags', 'tags-*',
-"                                                             \ 'node_modules/**', 'bower_components/**'])
+call unite#custom#source('file_rec/git', 'ignore_globs', ['node_modules/**', 'bower_components/**'])
 
 "-------------------------------------------------------------------------------
 " Settings that take effect only in unite buffers
@@ -55,7 +42,7 @@ endfunction
 " filter buffer for search term
 nnoremap <Leader>sb :Unite line<CR>
 nnoremap <Leader>sj :Unite jump<CR><Esc>
-nnoremap <Leader>nu :<C-u>Unite neobundle/update -log -vertical -auto-quit<CR>
+nnoremap <Leader>vu :call dein#update() <CR>
 nnoremap <Leader>ff :Unite file file_rec/git -start-insert -buffer-name=files -winheight=18<CR>
 nnoremap <Leader>b :Unite buffer<CR>
 
@@ -75,10 +62,14 @@ let g:unite_source_menu_menus.CustomKeyMaps = {'description': 'Custom mapped key
 let g:unite_source_menu_menus.CustomKeyMaps.command_candidates = [
     \['➤ Buffer list                                                   <Leader>b', 'Unite buffer'],
     \['➤ Delete from buffer list in normal mode                        <C-d>', 'echo "Use <C-d> to delete a buffer"'],
-    \['➤ Find files,                                                   <Leader>ff', 'normal <Leader>ff'],
+    \['➤ Find files                                                    <Leader>ff', 'normal <Leader>ff'],
     \['➤ Search jumps                                                  <Leader>sj', 'Unite jump'],
     \['➤ Search lines in the current buffer                            <Leader>sb', 'Unite line'],
-    \['➤ Update Neobundle packages                                     <Leader>nu', 'normal <Leader>nu'],
+    \['➤ Update Vim plugins                                            <Leader>vu', 'normal <Leader>vu'],
+    \['➤ Grep in Quickfix buffer                                       <Leader>g', 'echo "Use <Leader>g to grep within the Quickfix buffer"'],
+    \['➤ Restore the Quickfix buffer                                   <Leader>r', 'echo "Use <Leader>r to restore the Quickfix buffer"'],
+    \['➤ Reverse Grep in Quickfix buffer                               <Leader>v', 'echo "Use <Leader>v to reverse grep within the Quickfix buffer"'],
+    \['➤ Reverse Grep Line Under Cursor in Quickfix buffer             <Leader>d', 'echo "Use <Leader>d to reverse grep the Line Under the Cursor in Quickfix buffer"'],
     \]
 nnoremap <silent>[menu]<Space> :Unite -silent -winheight=17 -start-insert menu:CustomKeyMaps<CR>
 
@@ -139,6 +130,7 @@ let g:unite_source_menu_menus.StatusCodeDefinitions.command_candidates = [
     \['➤ 415 Unsupported Media Type                                     ', 'echo "Unsupported Media Type"'],
     \['➤ 416 Requested Range Not Satisfiable                            ', 'echo "Requested Range Not Satisfiable"'],
     \['➤ 417 Expectation Failed                                         ', 'echo "Expectation Failed"'],
+    \['➤ 422 Unprocessable Entity                                       ', 'echo "Unprocessable Entity"'],
     \['➤ 500 Internal Server Error                                      ', 'echo "Internal Server Error"'],
     \['➤ 501 Not Implemented                                            ', 'echo "Not Implemented"'],
     \['➤ 502 Bad Gateway                                                ', 'echo "Bad Gateway"'],

@@ -7,7 +7,7 @@
 " Plugin Configurations
 "===============================================================================
 function! VimfilerCurrentDir()
-    let currentDir = vimfiler#get_current_vimfiler().original_files
+    let currentDir = vimfiler#get_marked_files(b:vimfiler)
     for dirItem in currentDir
         if dirItem.vimfiler__is_marked == 1
             return dirItem.action__path
@@ -38,7 +38,7 @@ let g:vimfiler_marked_file_icon = '✓'
 let g:vimfiler_readonly_file_icon = '✗'
 let g:vimfiler_time_format = '%m-%d-%y %H:%M:%S'
 let g:vimfiler_expand_jump_to_first_child = 0
-let g:vimfiler_ignore_pattern = '\.git\|\.DS_Store\|\.pyc'
+let g:vimfiler_ignore_pattern = '\.git\|\.DS_Store\|\.pyc\|__pycache__'
 
 autocmd FileType vimfiler nunmap <buffer> <Space>
 autocmd FileType vimfiler nunmap <buffer> <C-l>
