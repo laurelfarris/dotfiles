@@ -1,10 +1,9 @@
 #==============
 # Install all the packages
 #==============
-echo -n "Install all the packages (Y/n) => "; read answer
-if [[ $answer = "Y" ]] ; then
+echo -n "Install all base packages (Y/n) => "; read answer
+if [[ $answer != "n" ]] && [[ $answer != "N" ]] ; then
     sudo chown -R $(whoami):admin /usr/local
-
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew doctor
     brew update
@@ -21,11 +20,11 @@ if [[ $answer = "Y" ]] ; then
     brew install tig
     brew install aspell
     brew install node
-    brew install reattach-to-user-namespace --wrap-pbcopy-and-pbpaste
-    brew install ack
+    brew install reattach-to-user-namespace
     brew install tmux
     brew install the_silver_searcher
     brew install planck
+    brew install zsh-syntax-highlighting
 
     # ===
     # Get Ctags properly setup
@@ -41,8 +40,17 @@ if [[ $answer = "Y" ]] ; then
     sudo pip install virtualenvwrapper
     sudo pip install jedi
     sudo pip install flake8
-    sudo gem install CoffeeTags
+fi
 
-    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > /tmp/installer.sh
-    sh /tmp/installer.sh ~/.dein
+echo -n "Install haskell related tools? (y/N) => "; read haskell
+if [[ $haskell = "y" ]] || [[ $haskell = "Y" ]] ; then
+    brew install haskell-stack
+    stack setup
+    stack install hlint ghc-mod hdevtools
+fi
+
+echo -n "Install GO related tools? (y/N) => "; read go
+if [[ $go = "y" ]] || [[ $go = "Y" ]] ; then
+    brew install go --cross-compile-common
+    # go get -u github.com/golang/lint/golint
 fi

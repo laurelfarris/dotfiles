@@ -7,6 +7,8 @@ else
     echo "zsh FAILED TO INSTALL!!!" >> $log_file
 fi
 
+sudo apt-get install zsh-syntax-highlighting
+
 sudo apt-get -y install vim-gnome
 if type -p vim > /dev/null; then
     echo "Vim Installed" >> $log_file
@@ -104,13 +106,6 @@ else
     echo "jshint FAILED TO INSTALL!!!" >> $log_file
 fi
 
-sudo npm install -g coffee-script
-if type -p coffee > /dev/null; then
-    echo "coffee script Installed" >> $log_file
-else
-    echo "coffee script FAILED TO INSTALL!!!" >> $log_file
-fi
-
 curl http://beyondgrep.com/ack-2.08-single-file > ~/ack && chmod 0755 !#:3
 sudo mv ~/ack /usr/bin/ack
 sudo chmod 755 /usr/bin/ack
@@ -184,9 +179,6 @@ if pip freeze | grep flake8 > /dev/null; then
 else
     echo "flake8 FAILED TO INSTALL!!!" >> $log_file
 fi
-
-curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > /tmp/installer.sh
-sh /tmp/installer.sh ~/.dein
 
 #==============
 # Give the user a summary of what has been installed

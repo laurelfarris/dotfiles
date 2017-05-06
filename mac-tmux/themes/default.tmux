@@ -1,9 +1,4 @@
 # -------------
-# Try to get close to normal colors in tmux
-# -------------
-set -g default-terminal "screen-256color"
-
-# -------------
 # start with window 1 (instead of 0)
 # -------------
 set -g base-index 1
@@ -16,7 +11,6 @@ set -g pane-base-index 1
 # -------------
 # status line
 # -------------
-set -g status-utf8 on
 set -g status-justify left
 #set -g status-bg black
 set -g status-bg colour234
@@ -41,4 +35,3 @@ setw -g window-status-attr default
 set -g status-left ''
 set -g status-right-length 150
 set -g status-right " #[fg=colour160] ♥ #[fg=colour69]#(bash ~/.tmux/scripts/remaining_battery.sh) | #(ifconfig | grep 192 | cut -d ' ' -f 2) | %H:%M "
-set -g status-utf8 on

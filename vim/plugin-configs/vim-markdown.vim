@@ -1,13 +1,14 @@
 "===============================================================================
 " Plugin source
 "===============================================================================
-"plasticboy/vim-markdown"
+"'plasticboy/vim-markdown'
 
 "===============================================================================
 " Plugin Configurations
 "===============================================================================
 let g:markdown_fenced_languages = ['python', 'sh', 'vim', 'javascript', 'html', 'clojure', 'css', 'c', 'sql', 'java']
 let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_folding_disabled = 1
 set conceallevel=2
 
 "===============================================================================
